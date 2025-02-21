@@ -1,11 +1,14 @@
 // src/app/api/file/[id]/route.ts
 import { NextRequest } from "next/server";
 
-export async function GET(
-  request: NextRequest,
-  { params }: { params: { id: string } }
-) {
-  const { id } = params;
+type Props = {
+  params: {
+    id: string;
+  };
+};
+
+export async function GET(request: NextRequest, context: Props) {
+  const { id } = context.params;
 
   if (!id) {
     return Response.json({ message: "Invalid file id" }, { status: 400 });
