@@ -28,9 +28,9 @@ export default function Home() {
   };
 
   return (
-    <main className="flex justify-around min-h-screen items-center px-4">
+    <main className="flex flex-col gap-5 md:gap-0 my-10 md:flex-row justify-around min-h-screen items-center px-4">
       {/* Link ke Website */}
-      <div className="flex flex-col gap-4 items-center w-1/2 h-96">
+      <div className="flex flex-col gap-4 items-center w-[90svw] md:w-1/2 h-96 md:h-96">
       <iframe src={"https://irfanks.site"} className="w-full h-full" />
       <Link href={"https://irfanks.site"}>
         <Button variant={"destructive"} className="flex items-center gap-2">
