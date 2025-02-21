@@ -11,7 +11,7 @@ export async function GET(
   }
 
   try {
-    const url = `https://raw.githubusercontent.com/irfankurniawansuthiono/public-uploads/main/file/${id}`;
+    const url = `https://raw.githubusercontent.com/${process.env.GITHUB_USERNAME}/public-uploads/main/file/${id}`;
     const response = await fetch(url);
 
     if (!response.ok) {
