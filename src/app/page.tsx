@@ -2,15 +2,16 @@
 import FileUpload from "@/components/FileUpload";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Globe, Upload } from "lucide-react";
+import { Globe, Loader, Upload } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 
 export default function Home() {
   const [response, setResponse] = useState<string | null>(null);
   const [image, setImage] = useState<File | null>(null);
-
+  const [loading, setLoading] = useState<boolean>(false)
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    setLoading(true)
     e.preventDefault();
     const formData = new FormData();
     if (image) {
@@ -24,6 +25,7 @@ export default function Home() {
     if (!data.url) {
       return setResponse(data.error);
     }
+    setLoading(false)
     setResponse(data.url);
   };
 
@@ -58,9 +60,9 @@ export default function Home() {
             />
 
             {/* Submit Button */}
-            <Button type="submit" className="w-full flex items-center gap-2">
-              <Upload className="w-4 h-4" />
-              Upload
+            <Button type="submit" disabled={loading} className="w-full flex items-center gap-2">
+              {loading ? <Loader className="w-4 h-4 animate-spin" /> : <Upload className="w-4 h-4" />}
+              {loading ? "Uploading..." : "Upload"}
             </Button>
 
             {/* Response Message */}
