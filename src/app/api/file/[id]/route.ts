@@ -1,14 +1,16 @@
-// src/app/api/file/[id]/route.ts
 import { NextRequest } from "next/server";
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
-  const { id } = await params;
+  const id = (await params).id;
 
   if (!id) {
-    return Response.json({ message: "Invalid file id" }, { status: 400 });
+    return new Response(JSON.stringify({ message: "Invalid file id" }), {
+      status: 400,
+      headers: { "Content-Type": "application/json" },
+    });
   }
 
   try {
@@ -23,7 +25,6 @@ export async function GET(
     const contentType =
       response.headers.get("content-type") || "application/octet-stream";
 
-    // Create response with proper headers
     return new Response(imageBuffer, {
       status: 200,
       headers: {
@@ -33,6 +34,9 @@ export async function GET(
     });
   } catch (error) {
     console.error("Error fetching image:", error);
-    return Response.json({ message: "File not found" }, { status: 404 });
+    return new Response(JSON.stringify({ message: "File not found" }), {
+      status: 404,
+      headers: { "Content-Type": "application/json" },
+    });
   }
 }
