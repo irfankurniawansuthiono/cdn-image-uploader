@@ -53,8 +53,6 @@ export default function Home() {
             <FileUpload
               acceptedFileTypes={{
                 images: ["image/*"],
-                videos: ["video/*"],
-                audios: ["audio/*"],
               }}
               onFilesUploaded={(files) => setImage(Array.isArray(files) ? files[0] : files)}
             />
